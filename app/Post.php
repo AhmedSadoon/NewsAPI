@@ -11,7 +11,5 @@ class Post extends Model
         'votes_up','votes_down','user_id','category_id',
     ];
 
-    public function category(){
-        return $this->belongsTo(Category::class);
-    }
+
 }
