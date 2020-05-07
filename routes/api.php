@@ -30,3 +30,15 @@ Route::get('posts/author/{id}','API\UserController@posts' );
 Route::get('comments/author/{id}','API\UserController@comments' );
 
 //end User Related
+
+/**
+ * @Post Related
+ */
+
+Route::get('categories','API\CategoryController@index');
+Route::get('posts/categories/{id}','API\CategoryController@posts');
+Route::get('posts','API\PostController@index');
+Route::get('posts/{id}','API\PostController@show');
+Route::get('comments/posts/{id}','API\PostController@comments');
+
+ //end post related
