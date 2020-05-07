@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AuthorCommentsResource;
+use App\Http\Resources\AuthorPostsResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UsersResource;
 use App\User;
@@ -17,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user=User::paginate();
+        $user=User::paginate(env('AUTHORS_PER_PAGE'));
         return new UsersResource($user);
     }
 
@@ -65,5 +67,35 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param $id
+     * @param AuthorPostsResource
+     */
+
+    public function posts($id){
+
+        $user=User::find($id);
+        $posts=$user->posts()->paginate(env('POST_PER_PAGE'));
+        return new AuthorPostsResource($posts);
+
+
+
+    }
+
+    /**
+     * @param $id
+     * @param AuthorCommentsResource
+     */
+
+    public function comments($id){
+
+        $user=User::find($id);
+        $comment=$user->comments()->paginate(env('COMMENT_PER_PAGE'));
+        return new AuthorCommentsResource($comment);
+
+
+
     }
 }
