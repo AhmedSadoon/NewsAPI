@@ -19,8 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/categories', function () {
 
-    return User::all();
-
-});
