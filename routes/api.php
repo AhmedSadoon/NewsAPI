@@ -51,6 +51,8 @@ Route::get('comments/posts/{id}','API\PostController@comments');
      function(){
          Route::post('update-user/{id}', 'API\UserController@update');
          Route::post('posts', 'API\PostController@store');
+         Route::post('posts/{id}', 'API\PostController@update');
+
 
      }
  );

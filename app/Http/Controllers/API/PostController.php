@@ -9,6 +9,7 @@ use App\Http\Resources\PostsResource;
 use App\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -50,11 +51,34 @@ class PostController extends Controller
 
         $post->user_id=$user->id;
 
-      //TOOO: handle featured_image file upload
+
 
       $post->votes_up=0;
       $post->votes_down=0;
       $post->date_written=Carbon::now()->format('Y-m-d H:m:s');
+
+
+        //TOOO: handle featured_image file upload
+
+        if($request->hasFile('featured_image')){
+
+            $featuredImage=$request->file('featured_image');
+            $fileName=time().$featuredImage->getClientOriginalName();
+
+            $path=base_path().'/public/images'.$fileName;
+            Storage::disk('images')->putFileAs(
+                $fileName,
+                $featuredImage,
+                $fileName
+            );
+
+            $post->featured_image=url('/').'/images/'.$fileName;
+
+        }
+
+
+
+
 
       $post->save();
         return new PostResource($post);
@@ -81,7 +105,52 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+        $user=$request->user();
+
+        $post=Post::find($id);
+        if($request->has('title')){
+            $post->title=$request->get('title');
+        }
+
+        if($request->has('content')){
+            $post->title=$request->get('content');
+        }
+
+        if($request->has('category_id')){
+            if(intval($request->get('category_id'))!=0){
+                $post->category_id=intval($request->get('category_id'));
+            }
+        }
+
+
+
+
+        //TOOO: handle featured_image file upload
+
+        if($request->hasFile('featured_image')){
+
+            $featuredImage=$request->file('featured_image');
+            $fileName=time().$featuredImage->getClientOriginalName();
+
+            $path=base_path().'/public/images'.$fileName;
+            Storage::disk('images')->putFileAs(
+                $fileName,
+                $featuredImage,
+                $fileName
+            );
+
+            $post->featured_image=url('/').'/images/'.$fileName;
+
+        }
+
+
+
+
+
+      $post->save();
+        return new PostResource($post);
     }
 
     /**
