@@ -50,6 +50,8 @@ Route::get('comments/posts/{id}','API\PostController@comments');
  Route::middleware('auth:api')->group(
      function(){
          Route::post('update-user/{id}', 'API\UserController@update');
+         Route::post('posts', 'API\PostController@store');
+
      }
  );
 
