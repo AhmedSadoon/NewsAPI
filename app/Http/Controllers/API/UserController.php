@@ -43,6 +43,8 @@ class UserController extends Controller
     public function show($id)
     {
 
+        // $user=User::find($id);
+        // return $user->api_token;
         return new UserResource(User::find($id));
     }
 
