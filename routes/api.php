@@ -53,6 +53,7 @@ Route::get('comments/posts/{id}','API\PostController@comments');
          Route::post('posts', 'API\PostController@store');
          Route::post('posts/{id}', 'API\PostController@update');
          Route::delete('posts/{id}', 'API\PostController@destroy');
+         Route::post('comments/posts/{id}', 'API\CommentController@store');
 
 
      }
