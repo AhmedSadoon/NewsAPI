@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-       $posts=Post::paginate(env('POST_PER_PAGE'));
+       $posts=Post::with(['comments','author'])->paginate(env('POST_PER_PAGE'));
        return new PostsResource($posts);
     }
 
