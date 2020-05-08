@@ -42,3 +42,11 @@ Route::get('posts/{id}','API\PostController@show');
 Route::get('comments/posts/{id}','API\PostController@comments');
 
  //end post related
+
+
+ Route::post('register', 'API\UserController@store');
+ Route::post('token', 'API\UserController@getToken');
+
+
+
+
